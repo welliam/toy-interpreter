@@ -30,3 +30,7 @@ def apply_function(f, args):
             'Arity error: expected {} args, received {}'.format(arity, args)
         )
     return f(*args)
+
+
+def evaluate(x, env):
+    return x
