@@ -1,3 +1,6 @@
+from collections import namedtuple
+
+
 empty_env = None
 
 
@@ -25,14 +28,20 @@ def evaluate(x, env):
     return x
 
 
-def primitive_function(f, arity):
-    return f, arity
+primitive_function = namedtuple('primitive_function', 'f, arity')
+
+compound_function = namedtuple('compound_function', 'params, body, env')
 
 
 def apply_function(f, args):
-    f, arity = f
-    if len(args) != arity:
-        raise TypeError(
-            'Arity error: expected {} args, received {}'.format(arity, args)
-        )
-    return f(*args)
+    if isinstance(f, primitive_function):
+        f, arity = f
+        if len(args) != arity:
+            raise TypeError(
+                'Arity error: expected {} args, received {}'.format(arity, args)
+            )
+        return f(*args)
+    else:
+        params, body, env = f
+        new_env = env_extend(dict(zip(params, args)), env)
+        return evaluate(body, new_env)
