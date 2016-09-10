@@ -30,7 +30,18 @@ def test_env_lookup_failure(test_env):
         env_lookup(test_env, '')
 
 
-def test_primitive_function():
-    from interp import primitive_function, apply_function
-    primitive_min = primitive_function(min, 2)
+@pytest.fixture
+def primitive_min():
+    from interp import primitive_function
+    return primitive_function(min, 2)
+
+
+def test_primitive_function(primitive_min):
+    from interp import apply_function
     assert apply_function(primitive_min, [1, 2]) == 1
+
+
+def test_primitive_function_arity_error(primitive_min):
+    from interp import apply_function
+    with pytest.raises(TypeError):
+        apply_function(primitive_min, [1])
