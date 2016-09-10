@@ -17,3 +17,8 @@ def test_env_lookup():
 def test_env_lookup_lexical(test_env):
     from interp import env_lookup
     assert env_lookup(test_env, 'a') == 1
+
+
+def test_env_lookup_deep(test_env):
+    from interp import env_lookup
+    assert env_lookup(test_env, 'b') == 2
