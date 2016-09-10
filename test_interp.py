@@ -60,3 +60,8 @@ def test_primitive_function_too_many_args(primitive_min):
 def test_self_evaluating(x):
     from interp import evaluate, empty_env
     assert evaluate(x, empty_env) == x
+
+
+def test_evaluate_variable(test_env):
+    from interp import evaluate
+    assert evaluate('a', test_env) == 1
