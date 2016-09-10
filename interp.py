@@ -19,6 +19,12 @@ def env_lookup(env, var):
     raise KeyError('Unbound variable: {}'.format(var))
 
 
+def evaluate(x, env):
+    if isinstance(x, str):
+        return env_lookup(env, x)
+    return x
+
+
 def primitive_function(f, arity):
     return f, arity
 
@@ -30,9 +36,3 @@ def apply_function(f, args):
             'Arity error: expected {} args, received {}'.format(arity, args)
         )
     return f(*args)
-
-
-def evaluate(x, env):
-    if isinstance(x, str):
-        return env_lookup(env, x)
-    return x
