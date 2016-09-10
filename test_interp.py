@@ -41,7 +41,13 @@ def test_primitive_function(primitive_min):
     assert apply_function(primitive_min, [1, 2]) == 1
 
 
-def test_primitive_function_arity_error(primitive_min):
+def test_primitive_function_not_enough_args(primitive_min):
     from interp import apply_function
     with pytest.raises(TypeError):
         apply_function(primitive_min, [1])
+
+
+def test_primitive_function_too_many_args(primitive_min):
+    from interp import apply_function
+    with pytest.raises(TypeError):
+        apply_function(primitive_min, [1, 2, 3])
