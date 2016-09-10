@@ -12,6 +12,18 @@ def test_env():
                                  env_extend({'a': 0}, empty_env)))
 
 
+@pytest.fixture
+def primitive_min():
+    from interp import primitive_function
+    return primitive_function(min, 2)
+
+
+@pytest.fixture
+def identity():
+    from interp import compound_function, empty_env
+    return compound_function(['x'], 'x', empty_env)
+
+
 def test_env_lookup():
     from interp import empty_env, env_lookup, env_extend
     assert env_lookup(env_extend({'a': 0}, empty_env), 'a') == 0
@@ -33,10 +45,20 @@ def test_env_lookup_failure(test_env):
         env_lookup(test_env, '')
 
 
-@pytest.fixture
-def primitive_min():
-    from interp import primitive_function
-    return primitive_function(min, 2)
+@pytest.mark.parametrize('x', SELF_EVALUATING)
+def test_self_evaluating(x):
+    from interp import evaluate, empty_env
+    assert evaluate(x, empty_env) == x
+
+
+def test_evaluate_variable(test_env):
+    from interp import evaluate
+    assert evaluate('a', test_env) == 1
+
+
+def test_closure_application(identity):
+    from interp import apply_function
+    assert apply_function(identity, [0]) == 0
 
 
 def test_primitive_function(primitive_min):
@@ -54,14 +76,3 @@ def test_primitive_function_too_many_args(primitive_min):
     from interp import apply_function
     with pytest.raises(TypeError):
         apply_function(primitive_min, [1, 2, 3])
-
-
-@pytest.mark.parametrize('x', SELF_EVALUATING)
-def test_self_evaluating(x):
-    from interp import evaluate, empty_env
-    assert evaluate(x, empty_env) == x
-
-
-def test_evaluate_variable(test_env):
-    from interp import evaluate
-    assert evaluate('a', test_env) == 1
