@@ -22,3 +22,9 @@ def test_env_lookup_lexical(test_env):
 def test_env_lookup_deep(test_env):
     from interp import env_lookup
     assert env_lookup(test_env, 'b') == 2
+
+
+def test_env_lookup_failure(test_env):
+    from interp import env_lookup
+    with pytest.raises(KeyError):
+        env_lookup(test_env, '')
