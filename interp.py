@@ -25,4 +25,8 @@ def primitive_function(f, arity):
 
 def apply_function(f, args):
     f, arity = f
+    if len(args) != arity:
+        raise TypeError(
+            'Arity error: expected {} args, received {}'.format(arity, args)
+        )
     return f(*args)
