@@ -28,3 +28,9 @@ def test_env_lookup_failure(test_env):
     from interp import env_lookup
     with pytest.raises(KeyError):
         env_lookup(test_env, '')
+
+
+def test_primitive_function():
+    from interp import primitive_function, apply_function
+    primitive_min = primitive_function(min, 2)
+    assert apply_function(primitive_min, [1, 2]) == 1
