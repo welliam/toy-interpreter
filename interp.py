@@ -33,4 +33,6 @@ def apply_function(f, args):
 
 
 def evaluate(x, env):
+    if isinstance(x, str):
+        return env_lookup(env, x)
     return x
