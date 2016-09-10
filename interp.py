@@ -16,4 +16,5 @@ def env_lookup(env, var):
             return frame[var]
         except KeyError:
             pass
-    raise KeyError('Unbound variable error')
+    raise KeyError('Unbound variable: {}'.format(var))
+
