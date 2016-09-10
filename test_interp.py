@@ -1,6 +1,9 @@
 import pytest
 
 
+SELF_EVALUATING = [0, 10, False, True]
+
+
 @pytest.fixture
 def test_env():
     from interp import empty_env, env_extend
@@ -51,3 +54,9 @@ def test_primitive_function_too_many_args(primitive_min):
     from interp import apply_function
     with pytest.raises(TypeError):
         apply_function(primitive_min, [1, 2, 3])
+
+
+@pytest.mark.parametrize('x', SELF_EVALUATING)
+def test_self_evaluating(x):
+    from interp import evaluate, empty_env
+    assert evaluate(x, empty_env) == x
