@@ -5,7 +5,7 @@ def env_extend(frame, new_env):
     """Extend an environment with a frame.
 
     frame should be dict-like."""
-    return (frame, new_env)
+    return frame, new_env
 
 
 def env_lookup(env, var):
@@ -18,3 +18,11 @@ def env_lookup(env, var):
             pass
     raise KeyError('Unbound variable: {}'.format(var))
 
+
+def primitive_function(f, arity):
+    return f, arity
+
+
+def apply_function(f, args):
+    f, arity = f
+    return f(*args)
