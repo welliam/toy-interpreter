@@ -4,19 +4,19 @@
 from collections import namedtuple
 
 
+def env_extend(frame, env):
+    """Extend an environment with a frame.
+
+    frame should be dict-like."""
+    return frame, env
+
+
 def make_env(frame=None):
     """Return a new, environment.
 
     If frame is specified, it is used as a top level
     environment. Otherwise, an empty environment is used."""
-    return ({} if frame is None else frame, None)
-
-
-def env_extend(frame, new_env):
-    """Extend an environment with a frame.
-
-    frame should be dict-like."""
-    return frame, new_env
+    return env_extend({} if frame is None else frame, None)
 
 
 def env_lookup(env, var):
