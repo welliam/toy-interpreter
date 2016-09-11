@@ -20,6 +20,7 @@ empty_env = None
 
 
 def make_env():
+    """Return a new, empty environment."""
     return ({}, None)
 
 
@@ -54,6 +55,7 @@ SPECIAL_FORMS = {}
 
 
 def special_form(name):
+    """Name a new SPECIAL_FORM to be used by evaluate_compound."""
     def decorator(f):
         SPECIAL_FORMS[name] = f
         return f
@@ -62,12 +64,14 @@ def special_form(name):
 
 @special_form('lambda')
 def evaluate_lambda(args, env):
+    """Evaluate lambda expression, return compound function."""
     params, body = args
     return compound_function(params, body, env)
 
 
 @special_form('begin')
 def evaluate_begin(expressions, env):
+    """Evaluate expressions in sequence, returning the last one."""
     for x in expressions:
         res = evaluate(x, env)
     return res
