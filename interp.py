@@ -84,6 +84,13 @@ def evaluate_definition(args, env):
     env[0][var] = evaluate(exp, env)
 
 
+@special_form('if')
+def evaluate_if(args, env):
+    """Evaluate if expression."""
+    exp, true, false = args
+    return true
+
+
 def evaluate_compound(op, args, env):
     """Evaluate a compound expression."""
     special_form = isinstance(op, str) and special_forms.get(op)
