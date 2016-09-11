@@ -169,6 +169,7 @@ def test_evaluate_begin(fresh_env):
 
 
 def test_evaluate_definition(fresh_env):
+    """Test evaluate_definition alters the environment."""
     from interp import evaluate_definition, env_lookup
     evaluate_definition(['x', 0], fresh_env)
     assert env_lookup(fresh_env, 'x') == 0

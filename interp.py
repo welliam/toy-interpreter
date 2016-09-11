@@ -79,6 +79,7 @@ def evaluate_begin(expressions, env):
 
 @special_form('define')
 def evaluate_definition(args, env):
+    """Modify env with the new definition."""
     var, exp = args
     env[0][var] = evaluate(exp, env)
 
