@@ -16,9 +16,6 @@ builtins, so it's not particularly usable."""
 from collections import namedtuple
 
 
-empty_env = None
-
-
 def make_env(frame=None):
     """Return a new, environment.
 
