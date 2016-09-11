@@ -33,3 +33,8 @@ def parse(tokens):
     """Turn a list of tokens into a tree of symbols and numbers."""
     t = tokens[0]
     return parse_list(tokens, 1)[0] if t == '(' else t
+
+
+def read_string(s):
+    """Parse a string."""
+    return parse(lex(s))
