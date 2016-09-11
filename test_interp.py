@@ -61,6 +61,11 @@ def test_closure_application(identity):
     assert apply_function(identity, [0]) == 0
 
 
+def test_evaluate_compound(identity):
+    from interp import evaluate_compound, empty_env
+    assert evaluate_compound(identity, [0], empty_env) == 0
+
+
 def test_primitive_function(primitive_min):
     from interp import apply_function
     assert apply_function(primitive_min, [1, 2]) == 1
