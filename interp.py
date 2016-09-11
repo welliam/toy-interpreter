@@ -19,9 +19,9 @@ from collections import namedtuple
 empty_env = None
 
 
-def make_env():
+def make_env(frame=None):
     """Return a new, empty environment."""
-    return ({}, None)
+    return ({} if frame is None else frame, None)
 
 
 def env_extend(frame, new_env):
