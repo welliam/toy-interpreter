@@ -1,16 +1,19 @@
 from interp import primitive_function, make_env
 
+
 BUILTINS = {
     '+': primitive_function(lambda x, y: x + y, 2),
     '-': primitive_function(lambda x, y: x - y, 2),
     '*': primitive_function(lambda x, y: x * y, 2),
     '/': primitive_function(lambda x, y: x / y, 2),
+    '%': primitive_function(lambda x, y: x % y, 2),
     '=': primitive_function(lambda x, y: x == y, 2),
     '<': primitive_function(lambda x, y: x < y, 2),
     '>': primitive_function(lambda x, y: x > y, 2),
     'cons': primitive_function(lambda x, y: (x, y), 2),
     'head': primitive_function(lambda p: p[0], 2),
     'tail': primitive_function(lambda p: p[1], 2),
+    'null': None
 }
 
 
