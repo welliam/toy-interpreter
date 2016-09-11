@@ -23,7 +23,9 @@ def env_lookup(env, var):
 
 
 def evaluate(x, env):
-    if isinstance(x, str):
+    if isinstance(x, list):
+        return evaluate_compound(x[0], x[1:], env)
+    elif isinstance(x, str):
         return env_lookup(env, x)
     return x
 
