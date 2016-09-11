@@ -173,3 +173,9 @@ def test_evaluate_definition(fresh_env):
     from interp import evaluate_definition, env_lookup
     evaluate_definition(['x', 0], fresh_env)
     assert env_lookup(fresh_env, 'x') == 0
+
+
+def test_evaluate_if_true(fresh_env):
+    """Test evaluate_if returns second param when first is True."""
+    from interp import evaluate_if
+    assert evaluate_if([True, 0, 1], fresh_env) == 0
