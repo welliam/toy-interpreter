@@ -88,7 +88,7 @@ def evaluate_definition(args, env):
 def evaluate_if(args, env):
     """Evaluate if expression."""
     exp, true, false = args
-    return true
+    return evaluate(true if evaluate(exp, env) else false, env)
 
 
 def evaluate_compound(op, args, env):
