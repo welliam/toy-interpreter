@@ -92,6 +92,7 @@ def evaluate_compound(op, args, env):
 
 primitive_function = namedtuple('primitive_function', 'f, arity')
 
+
 compound_function = namedtuple('compound_function', 'params, body, env')
 
 

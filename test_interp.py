@@ -33,7 +33,14 @@ PROGRAMS = [
           ['define', 'x', 1]],
          'x']),
     (0, [['lambda', ['x', 'y'], 'x'], 0, 1]),
-    (1, [['lambda', ['x', 'y'], 'y'], 0, 1])
+    (1, [['lambda', ['x', 'y'], 'y'], 0, 1]),
+    (0, ['begin',
+         ['define', 'x', 0],
+         ['define', 'f',
+          ['lambda', [],
+           ['define', 'x', 1]]],
+         ['f'],
+         'x'])
 ]
 
 
