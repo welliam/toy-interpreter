@@ -60,9 +60,9 @@ def evaluate_lambda(args, env):
 @special_form('begin')
 def evaluate_begin(expressions, env):
     """Evaluate expressions in sequence, returning the last one."""
-    for x in expressions:
-        res = evaluate(x, env)
-    return res
+    for x in expressions[:-1]:
+        evaluate(x, env)
+    return evaluate(expressions[-1], env)
 
 
 @special_form('define')
