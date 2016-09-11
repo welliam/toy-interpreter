@@ -37,9 +37,10 @@ def apply_function(f, args):
     if isinstance(f, primitive_function):
         f, arity = f
         if len(args) != arity:
-            raise TypeError(
-                'Arity error: expected {} args, received {}'.format(arity, args)
+            message = 'Arity error: expected {} args, received {}'.format(
+                arity, args
             )
+            raise TypeError(message)
         return f(*args)
     else:
         params, body, env = f
