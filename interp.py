@@ -29,6 +29,9 @@ def evaluate(x, env):
 
 
 def evaluate_compound(op, args, env):
+    if op == 'lambda':
+        params, body = args
+        return compound_function(params, body, env)
     def ev(x):
         return evaluate(x, env)
     return apply_function(ev(op), map(ev, args))
