@@ -90,7 +90,7 @@ def test_evaluate_compound_evaluate_identity():
 
 
 def test_evaluate_evaluates_compounds():
-    """Test evaluate correctly evaluates compound expressions.""" 
+    """Test evaluate correctly evaluates compound expressions."""
     from interp import evaluate, empty_env
     assert evaluate([['lambda', ['x'], 'x'], 0], empty_env) == 0
 
@@ -128,3 +128,9 @@ def test_compound_begin_returns_last_arg():
     """Test begin returns argument."""
     from interp import evaluate_compound, empty_env
     assert evaluate_compound('begin', [1, 2], empty_env) == 2
+
+
+def test_evaluate_lambda():
+    from interp import evaluate_lambda, evaluate, empty_env
+    op = evaluate_lambda([['x'], 'x'], empty_env)
+    assert evaluate([op, 0], empty_env) == 0
