@@ -46,21 +46,27 @@ def evaluate(x, env):
     return x
 
 
+SPECIAL_FORMS = {}
+
+
+def special_form(name):
+    def decorator(f):
+        SPECIAL_FORMS[name] = f
+        return f
+    return decorator
+
+
+@special_form('lambda')
 def evaluate_lambda(args, env):
     params, body = args
     return compound_function(params, body, env)
 
 
+@special_form('begin')
 def evaluate_begin(expressions, env):
     for x in expressions:
         res = evaluate(x, env)
     return res
-
-
-SPECIAL_FORMS = {
-    'lambda': evaluate_lambda,
-    'begin': evaluate_begin
-}
 
 
 def evaluate_compound(op, args, env):
