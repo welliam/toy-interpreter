@@ -16,7 +16,23 @@ PROGRAMS = [
          ['define', 'const',
           ['lambda', ['x'],
            ['lambda', ['y'], 'x']]],
-         [['const', 1], 2]])
+         [['const', 1], 2]]),
+    (0, ['begin',
+         ['define', 'x',
+          ['if', ['if', True, False, True], 1, 0]],
+         [['lambda', ['x'], 'x'], 'x']]),
+    (0, ['begin',
+         ['if', True,
+          ['define', 'x', 0],
+          ['define', 'x', 1]],
+         'x']),
+    (1, ['begin',
+         ['if', False,
+          ['define', 'x', 0],
+          ['define', 'x', 1]],
+         'x']),
+    (0, [['lambda', ['x', 'y'], 'x'], 0, 1]),
+    (1, [['lambda', ['x', 'y'], 'y'], 0, 1])
 ]
 
 
