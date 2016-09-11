@@ -51,13 +51,13 @@ def evaluate(x, env):
     return x
 
 
-SPECIAL_FORMS = {}
+special_forms = {}
 
 
 def special_form(name):
-    """Name a new SPECIAL_FORM to be used by evaluate_compound."""
+    """Name a new special form to be used by evaluate_compound."""
     def decorator(f):
-        SPECIAL_FORMS[name] = f
+        special_forms[name] = f
         return f
     return decorator
 
@@ -85,7 +85,7 @@ def evaluate_definition(args, env):
 
 def evaluate_compound(op, args, env):
     """Evaluate a compound expression."""
-    special_form = isinstance(op, str) and SPECIAL_FORMS.get(op)
+    special_form = isinstance(op, str) and special_forms.get(op)
     if special_form:
         return special_form(args, env)
 
