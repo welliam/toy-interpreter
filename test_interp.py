@@ -147,3 +147,9 @@ def test_evaluate_begin(fresh_env):
     """Test evaluate_begin sequences expressions."""
     from interp import evaluate_begin
     assert evaluate_begin([0, 1], fresh_env) == 1
+
+
+def test_evaluate_definition(fresh_env):
+    from interp import evaluate_definition, env_lookup
+    evaluate_definition(['x', 0], fresh_env)
+    assert env_lookup(fresh_env, 'x') == 0
