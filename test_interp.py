@@ -37,20 +37,6 @@ PROGRAMS = [
 ]
 
 
-BUILTINS = {
-    '+': primitive_function(lambda x, y: x + y, 2),
-    '-': primitive_function(lambda x, y: x - y, 2),
-    '*': primitive_function(lambda x, y: x * y, 2),
-    '/': primitive_function(lambda x, y: x / y, 2),
-    '=': primitive_function(lambda x, y: x == y, 2),
-    '<': primitive_function(lambda x, y: x < y, 2),
-    '>': primitive_function(lambda x, y: x > y, 2),
-    'cons': primitive_function(lambda x, y: (x, y), 2),
-    'head': primitive_function(lambda p: p[0], 2),
-    'tail': primitive_function(lambda p: p[1], 2),
-}
-
-
 @pytest.mark.parametrize('output, program', PROGRAMS)
 def test_program(output, program, fresh_env):
     from interp import evaluate
@@ -61,12 +47,6 @@ def test_program(output, program, fresh_env):
 def fresh_env():
     from interp import make_env
     return make_env()
-
-
-@pytest.fixture
-def builtins_env():
-    from interp import make_env
-    return make_env(BUILTINS)
 
 
 @pytest.fixture
@@ -218,7 +198,7 @@ def test_evaluate_if_true(fresh_env):
     assert evaluate_if([True, 0, 1], fresh_env) == 0
 
 
-def test_evaluate_if_false(builtins_env):
+def test_evaluate_if_false(fresh_env):
     """Test evaluate_if returns second param when first is True."""
     from interp import evaluate_if
-    assert evaluate_if([False, 0, 1], builtins_env) == 1
+    assert evaluate_if([False, 0, 1], fresh_env) == 1
