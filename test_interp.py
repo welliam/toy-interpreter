@@ -116,3 +116,9 @@ def test_primitive_function_too_many_args(primitive_min):
     from interp import apply_function
     with pytest.raises(TypeError):
         apply_function(primitive_min, [1, 2, 3])
+
+
+def test_compound_begin():
+    """Test begin returns argument."""
+    from interp import evaluate_compound, empty_env
+    assert evaluate_compound('begin', [1], empty_env) == 1
