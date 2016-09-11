@@ -179,3 +179,9 @@ def test_evaluate_if_true(fresh_env):
     """Test evaluate_if returns second param when first is True."""
     from interp import evaluate_if
     assert evaluate_if([True, 0, 1], fresh_env) == 0
+
+
+def test_evaluate_if_false(fresh_env):
+    """Test evaluate_if returns second param when first is True."""
+    from interp import evaluate_if
+    assert evaluate_if([False, 0, 1], fresh_env) == 1
