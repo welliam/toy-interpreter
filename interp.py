@@ -57,17 +57,21 @@ def evaluate_begin(expressions, env):
     return res
 
 
+SPECIAL_FORMS = {
+    'lambda': evaluate_lambda,
+    'begin': evaluate_begin
+}
+
+
 def evaluate_compound(op, args, env):
     """Evaluate a compound expression."""
-    if op == 'lambda':
-        return evaluate_lambda(args, env)
-    elif op == 'begin':
-        for x in args:
-            result = evaluate(x, env)
-        return result
-    def ev(x):
+    special_form = isinstance(op, str) and SPECIAL_FORMS.get(op)
+    if special_form:
+        return special_form(args, env)
+
+    def evaluate_here(x):
         return evaluate(x, env)
-    return apply_function(ev(op), map(ev, args))
+    return apply_function(evaluate_here(op), map(evaluate_here, args))
 
 
 primitive_function = namedtuple('primitive_function', 'f, arity')
