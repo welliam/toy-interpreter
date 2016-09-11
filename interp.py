@@ -77,6 +77,12 @@ def evaluate_begin(expressions, env):
     return res
 
 
+@special_form('define')
+def evaluate_definition(args, env):
+    var, exp = args
+    env[0][var] = evaluate(exp, env)
+
+
 def evaluate_compound(op, args, env):
     """Evaluate a compound expression."""
     special_form = isinstance(op, str) and SPECIAL_FORMS.get(op)
