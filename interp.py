@@ -54,8 +54,7 @@ def evaluate_lambda(args, env):
 def evaluate_compound(op, args, env):
     """Evaluate a compound expression."""
     if op == 'lambda':
-        params, body = args
-        return compound_function(params, body, env)
+        return evaluate_lambda(args, env)
     elif op == 'begin':
         for x in args:
             result = evaluate(x, env)
