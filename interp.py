@@ -28,6 +28,12 @@ def evaluate(x, env):
     return x
 
 
+def evaluate_compound(op, args, env):
+    def ev(x):
+        return evaluate(x, env)
+    return apply_function(ev(op), map(ev, args))
+
+
 primitive_function = namedtuple('primitive_function', 'f, arity')
 
 compound_function = namedtuple('compound_function', 'params, body, env')
