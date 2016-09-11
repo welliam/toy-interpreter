@@ -72,6 +72,11 @@ def test_evaluate_compound_evaluate_identity():
     assert evaluate_compound(op, [0], empty_env) == 0
 
 
+def test_evaluate_evaluates_compounds():
+    from interp import evaluate, empty_env
+    assert evaluate([['lambda', ['x'], 'x'], 0], empty_env) == 0
+
+
 def test_primitive_function(primitive_min):
     from interp import apply_function
     assert apply_function(primitive_min, [1, 2]) == 1
