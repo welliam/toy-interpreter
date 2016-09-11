@@ -8,9 +8,15 @@ SELF_EVALUATING = [0, 10, False, True]
 
 
 @pytest.fixture
-def test_env():
+def empty_env():
+    from interp import make_env
+    return make_env()
+
+
+@pytest.fixture
+def test_env(empty_env):
     """Test environment fixture."""
-    from interp import empty_env, env_extend
+    from interp import env_extend
     return env_extend({'a': 1},
                       env_extend({'b': 2},
                                  env_extend({'a': 0}, empty_env)))
@@ -26,15 +32,15 @@ def primitive_min():
 
 
 @pytest.fixture
-def identity():
+def identity(empty_env):
     """The identity function represented as a compound function."""
-    from interp import compound_function, empty_env
+    from interp import compound_function
     return compound_function(['x'], 'x', empty_env)
 
 
-def test_env_lookup():
+def test_env_lookup(empty_env):
     """Test looking up variable in one-frame env."""
-    from interp import empty_env, env_lookup, env_extend
+    from interp import env_lookup, env_extend
     assert env_lookup(env_extend({'a': 0}, empty_env), 'a') == 0
 
 
@@ -58,9 +64,9 @@ def test_env_lookup_failure(test_env):
 
 
 @pytest.mark.parametrize('x', SELF_EVALUATING)
-def test_self_evaluating(x):
+def test_self_evaluating(x, empty_env):
     """Test evaluate simply returns self-evaluating value."""
-    from interp import evaluate, empty_env
+    from interp import evaluate
     assert evaluate(x, empty_env) == x
 
 
@@ -76,22 +82,22 @@ def test_closure_application(identity):
     assert apply_function(identity, [0]) == 0
 
 
-def test_evaluate_compound(identity):
+def test_evaluate_compound(identity, empty_env):
     """Test evaluate_compound applies function."""
-    from interp import evaluate_compound, empty_env
+    from interp import evaluate_compound
     assert evaluate_compound(identity, [0], empty_env) == 0
 
 
-def test_evaluate_compound_evaluate_identity():
+def test_evaluate_compound_evaluate_identity(empty_env):
     """Test evaluate_compound evaluates a function."""
-    from interp import evaluate_compound, empty_env
+    from interp import evaluate_compound
     op = evaluate_compound('lambda', [['x'], 'x'], empty_env)
     assert evaluate_compound(op, [0], empty_env) == 0
 
 
-def test_evaluate_evaluates_compounds():
+def test_evaluate_evaluates_compounds(empty_env):
     """Test evaluate correctly evaluates compound expressions."""
-    from interp import evaluate, empty_env
+    from interp import evaluate
     assert evaluate([['lambda', ['x'], 'x'], 0], empty_env) == 0
 
 
@@ -118,26 +124,26 @@ def test_primitive_function_too_many_args(primitive_min):
         apply_function(primitive_min, [1, 2, 3])
 
 
-def test_compound_begin():
+def test_compound_begin(empty_env):
     """Test begin returns argument."""
-    from interp import evaluate_compound, empty_env
+    from interp import evaluate_compound
     assert evaluate_compound('begin', [1], empty_env) == 1
 
 
-def test_compound_begin_returns_last_arg():
+def test_compound_begin_returns_last_arg(empty_env):
     """Test begin returns argument."""
-    from interp import evaluate_compound, empty_env
+    from interp import evaluate_compound
     assert evaluate_compound('begin', [1, 2], empty_env) == 2
 
 
-def test_evaluate_lambda():
+def test_evaluate_lambda(empty_env):
     """Test evaluate_lambda returns closure."""
-    from interp import evaluate_lambda, evaluate, empty_env
+    from interp import evaluate_lambda, evaluate
     op = evaluate_lambda([['x'], 'x'], empty_env)
     assert evaluate([op, 0], empty_env) == 0
 
 
-def test_evaluate_begin():
+def test_evaluate_begin(empty_env):
     """Test evaluate_begin sequences expressions."""
-    from interp import evaluate_begin, empty_env
+    from interp import evaluate_begin
     assert evaluate_begin([0, 1], empty_env) == 1
