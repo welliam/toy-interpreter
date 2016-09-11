@@ -20,7 +20,10 @@ empty_env = None
 
 
 def make_env(frame=None):
-    """Return a new, empty environment."""
+    """Return a new, environment.
+
+    If frame is specified, it is used as a top level
+    environment. Otherwise, an empty environment is used."""
     return ({} if frame is None else frame, None)
 
 
