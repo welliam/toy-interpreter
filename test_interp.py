@@ -131,6 +131,13 @@ def test_compound_begin_returns_last_arg():
 
 
 def test_evaluate_lambda():
+    """Test evaluate_lambda returns closure."""
     from interp import evaluate_lambda, evaluate, empty_env
     op = evaluate_lambda([['x'], 'x'], empty_env)
     assert evaluate([op, 0], empty_env) == 0
+
+
+def test_evaluate_begin():
+    """Test evaluate_begin sequences expressions."""
+    from interp import evaluate_begin, empty_env
+    assert evaluate_begin([0, 1], empty_env) == 1
