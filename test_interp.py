@@ -7,6 +7,25 @@ import pytest
 SELF_EVALUATING = [0, 10, False, True]
 
 
+PROGRAMS = [
+    (0, ['begin',
+         ['define', 'id', ['lambda', ['x'], 'x']],
+         ['define', 'x', 0],
+         ['id', 'x']]),
+    (1, ['begin',
+         ['define', 'const',
+          ['lambda', ['x'],
+           ['lambda', ['y'], 'x']]],
+         [['const', 1], 2]])
+]
+
+
+@pytest.mark.parametrize('output, program', PROGRAMS)
+def test_program(output, program, fresh_env):
+    from interp import evaluate
+    assert evaluate(program, fresh_env) == output
+
+
 @pytest.fixture
 def fresh_env():
     from interp import make_env
