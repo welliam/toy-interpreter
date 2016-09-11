@@ -19,6 +19,10 @@ from collections import namedtuple
 empty_env = None
 
 
+def make_env():
+    return ({}, None)
+
+
 def env_extend(frame, new_env):
     """Extend an environment with a frame.
 
