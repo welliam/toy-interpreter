@@ -1,9 +1,21 @@
 def lex(s):
     """Lex a string into a list of tokens."""
-    return s.replace('(', ' ( ').replace(')', ' ) ').split()
+    return [read_token(t) for t in
+            s.replace('(', ' ( ').replace(')', ' ) ').split()]
+
+
+def read_token(t):
+    """Convert a token to a int if possible. Otherwise, return as is."""
+    try:
+        return int(t)
+    except ValueError:
+        return t
 
 
 def parse_list(tokens, i):
+    """Parse a list out of the tokens.
+
+    Returns the list and an index of where that list ends."""
     res = []
     while True:
         t = tokens[i]
