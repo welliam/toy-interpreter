@@ -122,3 +122,9 @@ def test_compound_begin():
     """Test begin returns argument."""
     from interp import evaluate_compound, empty_env
     assert evaluate_compound('begin', [1], empty_env) == 1
+
+
+def test_compound_begin_returns_last_arg():
+    """Test begin returns argument."""
+    from interp import evaluate_compound, empty_env
+    assert evaluate_compound('begin', [1, 2], empty_env) == 2
