@@ -1,5 +1,6 @@
 """A tiny interpreter."""
 
+from __future__ import print_function
 
 from collections import namedtuple
 
@@ -87,7 +88,9 @@ def evaluate_compound(op, args, env):
 
     def evaluate_here(x):
         return evaluate(x, env)
-    return apply_function(evaluate_here(op), map(evaluate_here, args))
+    return apply_function(
+        evaluate_here(op), [evaluate_here(arg) for arg in args]
+    )
 
 
 primitive_function = namedtuple('primitive_function', 'f, arity')
