@@ -5,7 +5,7 @@ def lex(s):
 
 
 def read_token(t):
-    """Convert a token to a int if possible. Otherwise, return as is."""
+    """Convert a token to an int if possible. Otherwise, return as is."""
     try:
         return int(t)
     except ValueError:
