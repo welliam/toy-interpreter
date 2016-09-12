@@ -16,19 +16,18 @@ def parse_list(tokens):
     """Parse a list out of the tokens.
 
     Returns the list and an index of where that list ends."""
-    todo = []
     res = []
-    for t in tokens[1:]:
+    for t in tokens:
         if t == '(':
-            todo.append(res)
-            res = []
+            res.append([])
         elif t == ')':
-            if todo:
-                res = todo.pop() + [res]
+            lst = res.pop()
+            if res:
+                res[-1].append(lst)
             else:
-                return res
+                return lst
         else:
-            res.append(t)
+            res[-1].append(t)
 
 
 def parse(tokens):
