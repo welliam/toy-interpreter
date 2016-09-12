@@ -13,9 +13,7 @@ def read_token(t):
 
 
 def parse_list(tokens):
-    """Parse a list out of the tokens.
-
-    Returns the list and an index of where that list ends."""
+    """Parse a list out of the tokens."""
     res = []
     for t in tokens:
         if t == '(':
