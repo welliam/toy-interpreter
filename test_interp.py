@@ -210,3 +210,10 @@ def test_evaluate_if_false(fresh_env):
     """Test evaluate_if returns second param when first is True."""
     from interp import evaluate_if
     assert evaluate_if([False, 0, 1], fresh_env) == 1
+
+
+def test_set_sets_var():
+    from interp import make_env, evaluate_set, env_lookup
+    env = make_env({'a', 0})
+    evaluate_set(['a', 1], env)
+    assert env_lookup(env, 'a') == 1
