@@ -2,7 +2,6 @@
 
 
 import pytest
-from interp import primitive_function
 
 
 SELF_EVALUATING = [0, 10, False, True]
