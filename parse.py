@@ -12,14 +12,13 @@ def read_token(t):
         return t
 
 
-def parse_list(tokens, i):
+def parse_list(tokens):
     """Parse a list out of the tokens.
 
     Returns the list and an index of where that list ends."""
     todo = []
     res = []
-    while True:
-        t = tokens[i]
+    for t in tokens[1:]:
         if t == '(':
             todo.append(res)
             res = []
@@ -30,13 +29,12 @@ def parse_list(tokens, i):
                 return res
         else:
             res.append(t)
-        i += 1
 
 
 def parse(tokens):
     """Turn a list of tokens into a tree of symbols and numbers."""
     t = tokens[0]
-    return parse_list(tokens, 1) if t == '(' else t
+    return parse_list(tokens) if t == '(' else t
 
 
 def read_string(s):
