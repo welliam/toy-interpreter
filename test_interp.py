@@ -224,3 +224,10 @@ def test_lookup_frame():
     """Test basic environment frame lookup."""
     from interp import make_env, lookup_frame
     assert lookup_frame(make_env({'a': 0}), 'a')['a'] == 0
+
+
+def test_lookup_frame_deep():
+    """Test deep environment frame lookup."""
+    from interp import make_env, lookup_frame, env_extend
+    env = env_extend({'a': 1}, make_env({'b': 0}))
+    assert lookup_frame(env, 'b')['b'] == 0
