@@ -213,6 +213,7 @@ def test_evaluate_if_false(fresh_env):
 
 
 def test_set_sets_var():
+    """Test evaluate_set reassigns variable."""
     from interp import make_env, evaluate_set, env_lookup
     env = make_env({'a': 0})
     evaluate_set(['a', 1], env)
