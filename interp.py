@@ -128,3 +128,35 @@ def apply_function(f, args):
         params, body, env = f
         new_env = env_extend(dict(zip(params, args)), env)
         return evaluate(body, new_env)
+
+
+BUILTINS = {
+    '+': primitive_function(lambda x, y: x + y, 2),
+    '-': primitive_function(lambda x, y: x - y, 2),
+    '*': primitive_function(lambda x, y: x * y, 2),
+    '/': primitive_function(lambda x, y: x // y, 2),
+    '%': primitive_function(lambda x, y: x % y, 2),
+    '=': primitive_function(lambda x, y: x == y, 2),
+    '<': primitive_function(lambda x, y: x < y, 2),
+    '>': primitive_function(lambda x, y: x > y, 2),
+    'cons': primitive_function(lambda x, y: (x, y), 2),
+    'head': primitive_function(lambda p: p[0], 1),
+    'tail': primitive_function(lambda p: p[1], 1),
+    'null': None,
+    'print': primitive_function(print, 1)
+}
+
+
+if __name__ == '__main__':
+    from parse import read_string
+
+    @special_form('load')
+    def load(args, env):
+        return evaluate(read_string(open(args[0]).read()), env)
+
+    env = make_env(BUILTINS)
+    while True:
+        try:
+            print(evaluate(read_string(input('[interp]> ')), env))
+        except Exception:
+            print('ERROR')
