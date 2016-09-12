@@ -80,6 +80,21 @@ def evaluate_if(args, env):
     return evaluate(true if evaluate(exp, env) else false, env)
 
 
+@special_form('set!')
+def evaluate_set(args, env):
+    """Evaluate assignment."""
+    var, exp = args
+    result = evaluate(exp, env)
+    while env:
+        frame, env = env
+        try:
+            frame[var] = result
+            return
+        except KeyError:
+            pass
+    raise KeyError('Unbound variable: {}'.format(var))
+
+
 def evaluate_compound(op, args, env):
     """Evaluate a compound expression."""
     special_form = isinstance(op, str) and special_forms.get(op)
