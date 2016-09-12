@@ -18,7 +18,7 @@ def env_extend(frame, env):
 
 
 def make_env(frame=None):
-    """Return a new, environment.
+    """Return a new environment.
 
     If frame is specified, it is used as a top level
     environment. Otherwise, an empty environment is used."""
