@@ -100,11 +100,8 @@ def evaluate_compound(op, args, env):
     special_form = isinstance(op, str) and special_forms.get(op)
     if special_form:
         return special_form(args, env)
-
-    def evaluate_here(x):
-        return evaluate(x, env)
     return apply_function(
-        evaluate_here(op), [evaluate_here(arg) for arg in args]
+        evaluate(op, env), [evaluate(arg, env) for arg in args]
     )
 
 
@@ -157,6 +154,6 @@ if __name__ == '__main__':
     env = make_env(BUILTINS)
     while True:
         try:
-          print(evaluate(read_string(input('[interp]> ')), env))
+            print(evaluate(read_string(input('[interp]> ')), env))
         except Exception:
             print('ERROR')
