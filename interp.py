@@ -4,6 +4,11 @@ from __future__ import print_function
 
 from collections import namedtuple
 
+try:
+    input = raw_input
+except NameError:
+    pass
+
 
 def env_extend(frame, env):
     """Extend an environment with a frame.
@@ -157,6 +162,6 @@ if __name__ == '__main__':
     env = make_env(BUILTINS)
     while True:
         try:
-            print(evaluate(read_string(input('[interp]> ')), env))
+          print(evaluate(read_string(input('[interp]> ')), env))
         except Exception:
             print('ERROR')
