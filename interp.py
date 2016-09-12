@@ -25,6 +25,17 @@ def make_env(frame=None):
     return env_extend({} if frame is None else frame, None)
 
 
+def lookup_frame(env, var):
+    """Return first frame containing var in env."""
+    while env:
+        frame, env = env
+        try:
+            return frame
+        except KeyError:
+            pass
+    raise KeyError('Unbound variable: {}'.format(var))
+
+
 def env_lookup(env, var):
     """Look up var in environment."""
     while env:
