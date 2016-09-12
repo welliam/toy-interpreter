@@ -29,10 +29,8 @@ def lookup_frame(env, var):
     """Return first frame containing var in env."""
     while env:
         frame, env = env
-        try:
+        if var in frame:
             return frame
-        except KeyError:
-            pass
     raise KeyError('Unbound variable: {}'.format(var))
 
 
