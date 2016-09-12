@@ -217,3 +217,9 @@ def test_set_sets_var():
     env = make_env({'a': 0})
     evaluate_set(['a', 1], env)
     assert env_lookup(env, 'a') == 1
+
+
+def test_lookup_frame():
+    """Test basic environment frame lookup."""
+    from interp import make_env, lookup_frame
+    assert lookup_frame(make_env({'a': 0}), 'a')['a'] == 0
