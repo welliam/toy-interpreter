@@ -43,14 +43,9 @@ PROGRAMS = [
 ]
 
 
-@pytest.mark.parametrize('output, program', PROGRAMS)
-def test_program(output, program, fresh_env):
-    from interp import evaluate
-    assert evaluate(program, fresh_env) == output
-
-
 @pytest.fixture
 def fresh_env():
+    """Return an empty environment."""
     from interp import make_env
     return make_env()
 
@@ -78,6 +73,13 @@ def identity(fresh_env):
     """The identity function represented as a compound function."""
     from interp import compound_function
     return compound_function(['x'], 'x', fresh_env)
+
+
+@pytest.mark.parametrize('output, program', PROGRAMS)
+def test_program(output, program, fresh_env):
+    """Test program produces given output."""
+    from interp import evaluate
+    assert evaluate(program, fresh_env) == output
 
 
 def test_env_lookup(fresh_env):

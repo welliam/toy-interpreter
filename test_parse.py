@@ -55,5 +55,6 @@ def test_parse(tokens, tree):
 
 @pytest.mark.parametrize('string, tree', READ_RESULTS)
 def test_read_string(string, tree):
+    """Test read_string."""
     from parse import read_string
     assert read_string(string) == tree
