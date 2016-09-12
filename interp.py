@@ -36,13 +36,7 @@ def lookup_frame(env, var):
 
 def env_lookup(env, var):
     """Look up var in environment."""
-    while env:
-        frame, env = env
-        try:
-            return frame[var]
-        except KeyError:
-            pass
-    raise KeyError('Unbound variable: {}'.format(var))
+    return lookup_frame(env, var)[var]
 
 
 def evaluate(x, env):
@@ -98,15 +92,7 @@ def evaluate_if(args, env):
 def evaluate_set(args, env):
     """Evaluate assignment."""
     var, exp = args
-    result = evaluate(exp, env)
-    while env:
-        frame, env = env
-        try:
-            frame[var] = result
-            return
-        except KeyError:
-            pass
-    raise KeyError('Unbound variable: {}'.format(var))
+    lookup_frame(env, var)[var] = evaluate(exp, env)
 
 
 def evaluate_compound(op, args, env):
