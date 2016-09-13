@@ -2,11 +2,6 @@
 
 from collections import namedtuple
 
-try:
-    input = raw_input
-except NameError:
-    pass
-
 
 def env_extend(frame, env):
     """Extend an environment with a frame.
@@ -20,7 +15,7 @@ def make_env(frame=None):
 
     If frame is specified, it is used as a top level
     environment. Otherwise, an empty environment is used."""
-    return env_extend({} if frame is None else frame, None)
+    return env_extend(frame or {}, None)
 
 
 def lookup_frame(env, var):
@@ -44,6 +39,16 @@ def evaluate(x, env):
     elif isinstance(x, str):
         return env_lookup(env, x)
     return x
+
+
+def evaluate_compound(op, args, env):
+    """Evaluate a compound expression."""
+    special_form = isinstance(op, str) and special_forms.get(op)
+    if special_form:
+        return special_form(args, env)
+    return apply_function(
+        evaluate(op, env), [evaluate(arg, env) for arg in args]
+    )
 
 
 special_forms = {}
@@ -91,16 +96,6 @@ def evaluate_set(args, env):
     """Evaluate assignment."""
     var, exp = args
     lookup_frame(env, var)[var] = evaluate(exp, env)
-
-
-def evaluate_compound(op, args, env):
-    """Evaluate a compound expression."""
-    special_form = isinstance(op, str) and special_forms.get(op)
-    if special_form:
-        return special_form(args, env)
-    return apply_function(
-        evaluate(op, env), [evaluate(arg, env) for arg in args]
-    )
 
 
 primitive_function = namedtuple('primitive_function', 'f, arity')
