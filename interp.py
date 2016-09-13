@@ -56,6 +56,7 @@ def paren_input(prompt):
 
 @special_form('load')
 def load(args, env):
+    """Evaluate an entire file."""
     return evaluate(read_string(open(args[0]).read()), env)
 
 
