@@ -3,6 +3,11 @@ from __future__ import print_function
 from evaluator import evaluate, make_env, primitive_function, special_form
 from parse import read_string
 
+try:
+    input = raw_input
+except NameError:
+    pass
+
 
 BUILTINS = {
     '+': primitive_function(lambda x, y: x + y, 2),
@@ -17,6 +22,8 @@ BUILTINS = {
     'head': primitive_function(lambda p: p[0], 1),
     'tail': primitive_function(lambda p: p[1], 1),
     'null': None,
+    '#f': False,
+    '#t': True,
     'print': primitive_function(print, 1)
 }
 
