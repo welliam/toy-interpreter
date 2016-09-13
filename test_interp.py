@@ -18,7 +18,7 @@ BALANCED_TABLE = [
     ('(f (f) (f f f () ())', False)
 ]
 
-UNBALANCED_TABLE = [')', '(((()))))', '()))))))', '(() () ()))']
+UNBALANCED_TABLE = [')', '(((()))))', '())))))) ((', '(() () ()))']
 
 
 @pytest.mark.parametrize('s, expected', BALANCED_TABLE)
