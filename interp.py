@@ -1,4 +1,5 @@
 from __future__ import print_function
+import sys
 
 from evaluator import evaluate, make_env, primitive_function, special_form
 from parse import read_string
@@ -51,10 +52,12 @@ BUILTINS = {
     '-': primitive_function(lambda x, y: x - y, 2),
     '*': primitive_function(lambda x, y: x * y, 2),
     '/': primitive_function(lambda x, y: x // y, 2),
-    '%': primitive_function(lambda x, y: x % y, 2),
+    'modulo': primitive_function(lambda x, y: x % y, 2),
     '=': primitive_function(lambda x, y: x == y, 2),
     '<': primitive_function(lambda x, y: x < y, 2),
     '>': primitive_function(lambda x, y: x > y, 2),
+    '>=': primitive_function(lambda x, y: x >= y, 2),
+    '<=': primitive_function(lambda x, y: x <= y, 2),
     'cons': primitive_function(cons, 2),
     'head': primitive_function(lambda p: p[0], 1),
     'tail': primitive_function(lambda p: p[1], 1),
@@ -81,12 +84,12 @@ def balanced(s):
     return opens == 0
 
 
-def paren_input(prompt):
+def paren_input(prompt, port=sys.stdin):
     """Reads input from stdin until parentheses are balanced."""
     result = ''
     print(prompt, end='')
     while True:
-        result += input() + '\n'
+        result += sys.stdin.readline()
         if result.strip() and balanced(result):
             return result
 
@@ -94,7 +97,7 @@ def paren_input(prompt):
 @special_form('load')
 def load(args, env):
     """Evaluate an entire file."""
-    return evaluate(read_string(open(args[0]).read()), env)
+    evaluate(read_string('(begin {})'.format(open(args[0]).read())), env)
 
 
 if __name__ == '__main__':
