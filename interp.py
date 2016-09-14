@@ -9,6 +9,43 @@ except NameError:
     pass
 
 
+class Null(object):
+    """The empty list."""
+    def __str__(self):
+        return '()'
+
+
+null = Null()
+
+
+class Cons(tuple):
+    """Cons object"""
+    def __str__(self):
+        last_pair = self
+        while isinstance(last_pair[1], Cons):
+            last_pair = last_pair[1]
+        return (list_to_str if last_pair[1] is null else pair_to_str)(self)
+
+
+def cons(a, b):
+    """Create a cons."""
+    return Cons((a, b))
+
+
+def pair_to_str(pair):
+    """Return a pair as a string."""
+    return '({} . {})'.format(pair[0], pair[1])
+
+
+def list_to_str(lst):
+    """Return a list as a string."""
+    res = '('
+    while lst[1] is not null:
+        res += '{} '.format(lst[0])
+        lst = lst[1]
+    return res + '{})'.format(lst[0])
+
+
 BUILTINS = {
     '+': primitive_function(lambda x, y: x + y, 2),
     '-': primitive_function(lambda x, y: x - y, 2),
@@ -18,10 +55,10 @@ BUILTINS = {
     '=': primitive_function(lambda x, y: x == y, 2),
     '<': primitive_function(lambda x, y: x < y, 2),
     '>': primitive_function(lambda x, y: x > y, 2),
-    'cons': primitive_function(lambda x, y: (x, y), 2),
+    'cons': primitive_function(cons, 2),
     'head': primitive_function(lambda p: p[0], 1),
     'tail': primitive_function(lambda p: p[1], 1),
-    'null': None,
+    'null': null,
     '#f': False,
     '#t': True,
     'print': primitive_function(print, 1)
