@@ -1,5 +1,7 @@
 A tiny interpreter.
 
+[![Build Status](https://travis-ci.org/welliam/toy-interpreter.svg?branch=master)](https://travis-ci.org/welliam/toy-interpreter)
+
 This interpreter is lexically scoped and supports functions in Python
 as well as compound functions. It follows SICP's design of a mutually
 recursive "eval" and "apply" (here, as "evaluate" and
