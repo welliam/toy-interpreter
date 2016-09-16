@@ -7,3 +7,5 @@ recursive "eval" and "apply" (here, as "evaluate" and
 sufficiently large expressions can blow the stack. I could rewrite it
 iteratively using a stack, but that would be less clear (and this is
 for demonstrational purposes, so clarity takes precedence).
+
+To run: `python interp.py`

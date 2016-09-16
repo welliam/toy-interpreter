@@ -102,6 +102,7 @@ def load(args, env):
 
 if __name__ == '__main__':
     env = make_env(BUILTINS)
+    print('Ctrl-c to exit')
     while True:
         try:
             print(evaluate(read_string(paren_input('[interp]> ')), env))
