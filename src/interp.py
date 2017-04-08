@@ -1,8 +1,8 @@
 from __future__ import print_function
 import sys
 
-from evaluator import evaluate, make_env, primitive_function, special_form
-from parse import read_string
+from .evaluator import evaluate, make_env, primitive_function, special_form
+from .parse import read_string
 
 try:
     input = raw_input
@@ -88,6 +88,7 @@ def paren_input(prompt, port=sys.stdin):
     """Reads input from stdin until parentheses are balanced."""
     result = ''
     print(prompt, end='')
+    sys.stdout.flush()
     while True:
         result += sys.stdin.readline()
         if result.strip() and balanced(result):

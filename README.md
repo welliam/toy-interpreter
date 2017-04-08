@@ -10,4 +10,4 @@ sufficiently large expressions can blow the stack. I could rewrite it
 iteratively using a stack, but that would be less clear (and this is
 for demonstrational purposes, so clarity takes precedence).
 
-To run: `python interp.py`
+To run: `python -m src.interp`

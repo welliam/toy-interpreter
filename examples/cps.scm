@@ -5,7 +5,7 @@
 
 (define if&
   (lambda (exp truek falsek)
-    (if exp (truek) (falsek))))
+    ((if exp truek falsek))))
 
 (define reverse&
   (lambda (t k)

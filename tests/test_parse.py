@@ -42,19 +42,19 @@ READ_RESULTS = [
 @pytest.mark.parametrize('string, tokens', LEX_RESULTS)
 def test_lex(string, tokens):
     """Test lex."""
-    from parse import lex
+    from src.parse import lex
     assert lex(string) == tokens
 
 
 @pytest.mark.parametrize('tokens, tree', PARSE_RESULTS)
 def test_parse(tokens, tree):
     """Test parse."""
-    from parse import parse
+    from src.parse import parse
     assert parse(tokens) == tree
 
 
 @pytest.mark.parametrize('string, tree', READ_RESULTS)
 def test_read_string(string, tree):
     """Test read_string."""
-    from parse import read_string
+    from src.parse import read_string
     assert read_string(string) == tree
